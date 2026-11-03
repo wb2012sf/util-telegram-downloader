@@ -3,6 +3,8 @@ name = "telegram-downloader"
 version = "0.1.0"
 description = "Export Telegram chat history to JSON/HTML, with a GUI for credentials and chat selection."
 requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 dependencies = [
     "telethon>=1.36,<2",
     "python-dotenv>=1.0,<2",
