@@ -1,0 +1,25 @@
+[project]
+name = "telegram-downloader"
+version = "0.1.0"
+description = "Export Telegram chat history to JSON/HTML, with a GUI for credentials and chat selection."
+requires-python = ">=3.11"
+dependencies = [
+    "telethon>=1.36,<2",
+    "python-dotenv>=1.0,<2",
+    "keyring>=25,<26",
+    "PySide6>=6.7,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+    "pre-commit>=4,<5",
+    "detect-secrets>=1.5,<2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# credentials.py/chat_filter.py/telegram_export.py live at the repo root,
+# not in an installed package -- `python -m pytest` adds cwd to sys.path
+# implicitly, but the bare `pytest` command doesn't, so pin it explicitly.
+pythonpath = ["."]

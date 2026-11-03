@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: ^\.secrets\.baseline$
+
+  - repo: local
+    hooks:
+      - id: check-url-credentials
+        name: Check for credentials embedded in a URL
+        description: >-
+          Catches <scheme>://<user>:<password>@<host> URLs, including when
+          the "user" part itself contains an "@" (e.g. an email address) --
+          a shape detect-secrets' own BasicAuthDetector misses. See
+          scripts/check_url_credentials.py.
+        entry: python scripts/check_url_credentials.py
+        # language: python, not system -- pre-commit manages its own venv
+        # for this and invokes it with that venv's own `python`, so this
+        # doesn't depend on a bare `python` (vs. `python3`, vs. nothing at
+        # all) being on the host's PATH.
+        language: python
+        types: [text]
